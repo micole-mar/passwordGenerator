@@ -1,7 +1,9 @@
 import tkinter as tk
-import random
+from tkinter import ttk
 import string
 import secrets
+from ttkthemes import ThemedTk
+
 
 def generate_password():
     # Get the password length from the user input
@@ -16,24 +18,30 @@ def generate_password():
     # Display the generated password in the result label
     result_label.config(text=secure_password)
 
-
-window = tk.Tk()
+# Create the main window
+window = ThemedTk(theme="arc")
 window.title("Password Generator")
 
-# Label and Entry for password length
-length_label = tk.Label(window, text="Password Length:")
-length_label.pack()
+# Create a frame for the content
+frame = ttk.Frame(window)
+frame.grid(column=0, row=0, padx=20, pady=20, sticky=(tk.W, tk.E, tk.N, tk.S))
+frame.columnconfigure(0, weight=1)
+frame.rowconfigure(0, weight=1)
 
-length_entry = tk.Entry(window)
-length_entry.pack()
+# Label and Entry for password length
+length_label = ttk.Label(frame, text="Password Length:")
+length_label.grid(column=0, row=0, sticky=tk.W)
+
+length_entry = ttk.Entry(frame)
+length_entry.grid(column=1, row=0, sticky=(tk.W, tk.E))
 
 # Button to generate password
-generate_button = tk.Button(window, text="Generate Password", command=generate_password)
-generate_button.pack()
+generate_button = ttk.Button(frame, text="Generate Password", command=generate_password)
+generate_button.grid(column=0, row=1, columnspan=2, pady=(10, 0))
 
 # Label to display the generated password
-result_label = tk.Label(window, text="", wraplength=300)
-result_label.pack()
+result_label = ttk.Label(frame, text="", wraplength=300)
+result_label.grid(column=0, row=2, columnspan=2, pady=(10, 0))
 
-# Start GUI main loop
+# Start the GUI main loop
 window.mainloop()
